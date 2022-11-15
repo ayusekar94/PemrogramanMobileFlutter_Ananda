@@ -68,21 +68,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void konversiSuhu() {
     return setState(() {
-       if (etInput.text.isNotEmpty) {
-        switch (selectedDropDown) {
-          case 'Kelvin':
-            hasilPerhitungan = int.parse(etInput.text) + 273;
-            break;
-          case 'Reamur':
-            hasilPerhitungan = (4 * int.parse(etInput.text) / 5) as int;
-            break;
-          case 'Fahrenheit':
-            hasilPerhitungan = (9 * int.parse(etInput.text) / 5) as int;
-            break;
-          default:
-        }
-        listHasil.add(selectedDropDown + " : " + hasilPerhitungan.toString());
-      }
+      //  if (etInput.text.isNotEmpty) {
+      //   switch (selectedDropDown) {
+      //     case 'Kelvin':
+      //       hasilPerhitungan = int.parse(etInput.text) + 273;
+      //       break;
+      //     case 'Reamur':
+      //       hasilPerhitungan = (4 * int.parse(etInput.text) / 5) as int;
+      //       break;
+      //     case 'Fahrenheit':
+      //       hasilPerhitungan = (9 * int.parse(etInput.text) / 5) as int;
+      //       break;
+      //     default:
+      //   }
+        hasilPerhitungan = int.parse(etInput.text) + 273;
+        listHasil.add("Kelvin" + " : " + hasilPerhitungan.toString());
+        hasilPerhitungan = (4 * int.parse(etInput.text) / 5) as int;
+        listHasil.add("Reamur" + " : " + hasilPerhitungan.toString());
+        hasilPerhitungan = (9 * int.parse(etInput.text) / 5) as int;
+        listHasil.add("Fahrenheit" + " : " + hasilPerhitungan.toString());
+      
     
     });
   }
@@ -105,6 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
           margin: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              //Input(etInput: etInput),
               Slider(
                 value: _current,
                 min: 0,
