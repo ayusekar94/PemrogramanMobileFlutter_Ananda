@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bab4_statefull_widget/widgets/hasilKonversiSuhu.dart';
+import 'package:bab4_statefull_widget/widgets/input.dart';
+import 'package:bab4_statefull_widget/widgets/riwayatSuhu.dart';
+import 'package:bab4_statefull_widget/widgets/targetKonversiSuhu.dart';
+import 'package:bab4_statefull_widget/widgets/tombolKonversiSuhu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,186 +54,90 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-   double inputuser = 0;
-  double kelvin = 0;
-  double reamur = 0;
-  final inputController = TextEditingController();
-  String newValue = "Kelvin";
-  double result = 0;
-  String changeValue = "";
+  TextEditingController etInput = TextEditingController();
+  List<String> listSatuanSuhu = ['Kelvin', 'Reamur', 'Fahrenheit'];
+  String selectedDropDown = 'Kelvin';
+  int hasilPerhitungan = 0;
+  List<String> listHasil = <String>[];
 
-  List<String> listViewItem = <String>[];
+  void onDropDownChanged(Object? value) {
+    return setState(() {
+      selectedDropDown = value.toString();
+    });
+  }
 
-  var listItem = [
-    "Kelvin",
-    "Reamur",
-  ];
-  void perhitunganSuhu() {
-    setState(() {
-      inputuser = double.parse(inputController.text);
-
-      if (newValue == "Kelvin") {
-        result = inputuser + 273;
-      } else {
-        result = (4 / 5) * inputuser;
+  void konversiSuhu() {
+    return setState(() {
+       if (etInput.text.isNotEmpty) {
+        switch (selectedDropDown) {
+          case 'Kelvin':
+            hasilPerhitungan = int.parse(etInput.text) + 273;
+            break;
+          case 'Reamur':
+            hasilPerhitungan = (4 * int.parse(etInput.text) / 5) as int;
+            break;
+          case 'Fahrenheit':
+            hasilPerhitungan = (9 * int.parse(etInput.text) / 5) as int;
+            break;
+          default:
+        }
+        listHasil.add(selectedDropDown + " : " + hasilPerhitungan.toString());
       }
+    
     });
-    listViewItem.add(result.toString());
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  double _current = 0;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return MaterialApp(
+      title: 'konversi suhu',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Input(
-                myController: inputController,
-              ),
-            ),
-            Container(
-              child: DropdownButton<String>(
-                  items: listItem.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-
-                  /*
-                [
-                DropdownMenuItem(
-                  value: "Kelvin" , child: Container(child: Text("Kelvin"),),),
-                DropdownMenuItem(
-                  value: "Reamur", child: Container(child: Text("Reamur"),),)
-              ],
-              */
-                  value: newValue,
-                  onChanged: (String? changeValue) {
-                    setState(() {
-                      newValue = changeValue!;
-                      perhitunganSuhu();
-                    });
-                  }),
-            ),
-            Result(
-              result: result,
-            ),
-            SizedBox(
-              child: Container(
-                  child: Convert(
-                konvertHandler: perhitunganSuhu,
-              )),
-            ),
-            Container(child: Text("Riwayat Konversi")),
-            Expanded(
-                child: ListView(
-              children: listViewItem.map((String value) {
-                return Container(
-                    margin: EdgeInsets.all(10),
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 15, color: Colors.blue),
-                    ));
-              }).toList(),
-            )),
-            //
-          ],
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Bab 4 - Konverter Suhu'),
         ),
-      ),
-    );
-  }
-}
-
-class Convert extends StatelessWidget {
-  const Convert({
-    Key? key,
-    required this.konvertHandler,
-  }) : super(key: key);
-
-  final Function konvertHandler;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(backgroundColor: Colors.blueAccent),
-      onPressed: () {
-        konvertHandler();
-      },
-      child: Text(
-        "Konversi Suhu",
-        style: TextStyle(color: Colors.white),
-      ),
-    );
-  }
-}
-
-class Input extends StatelessWidget {
-  const Input({
-    Key? key,
-    required this.myController,
-  }) : super(key: key);
-
-  final TextEditingController myController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: myController,
-      decoration: InputDecoration(hintText: "Masukkan Nilai "),
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.digitsOnly,
-      ],
-      keyboardType: TextInputType.number,
-    );
-  }
-}
-
-class Result extends StatelessWidget {
-  const Result({
-    Key? key,
-    required this.result,
-  }) : super(key: key);
-
-  final double result;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Hasil",
-            style: TextStyle(fontSize: 20),
+        body: Container(
+          margin: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Slider(
+                value: _current,
+                min: 0,
+                max: 200,
+                divisions: 200,
+                label: _current.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    _current = value;
+                    etInput.text = _current.toString();
+                  });
+              }),
+              targetKonversiSuhu(
+                selectedDropDown: selectedDropDown,
+                listSatuanSuhu: listSatuanSuhu,
+                onDropDownChanged: onDropDownChanged,
+                konversiSuhu: konversiSuhu,
+              ),
+              hasilKonversiSuhu(hasilPerhitungan: hasilPerhitungan),
+              tombolKonversiSuhu(
+                konversiSuhu: konversiSuhu,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: const Text(
+                  'Riwayat Konversi',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              riwayatSuhu(listHasil: listHasil)
+            ],
           ),
-          Text(
-            result.toStringAsFixed(1),
-            style: TextStyle(fontSize: 30),
-          ),
-        ],
+        ),
       ),
     );
   }
