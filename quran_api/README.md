@@ -1,16 +1,10 @@
 # quran_api
 
-A new Flutter project.
+Aplikasi Al-Qur'an menggunakan Api <br>
 
-## Getting Started
+![1](https://user-images.githubusercontent.com/92219304/207324173-d39121f6-9028-4e0e-b6cc-699473489aad.jpg)
+![2](https://user-images.githubusercontent.com/92219304/207324179-fbd43786-071d-4bdf-af1b-e03b8d74eb7b.jpg)
+![3](https://user-images.githubusercontent.com/92219304/207324183-52ee3d09-1d9c-455c-9b3b-f0417bd0f582.jpg)
+![4](https://user-images.githubusercontent.com/92219304/207324191-2fa59671-1858-4209-8340-60d043353844.jpg)
+![5](https://user-images.githubusercontent.com/92219304/207324204-afa7313c-58fa-47a5-8c61-dbb2a36803ec.jpg)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
