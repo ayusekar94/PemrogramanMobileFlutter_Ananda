@@ -1,6 +1,4 @@
-# quran_api
-
-Aplikasi Al-Qur'an menggunakan Api <br>
+# Aplikasi Al-Qur'an menggunakan Api
 
 ![1](https://user-images.githubusercontent.com/92219304/207324173-d39121f6-9028-4e0e-b6cc-699473489aad.jpg)
 ![2](https://user-images.githubusercontent.com/92219304/207324179-fbd43786-071d-4bdf-af1b-e03b8d74eb7b.jpg)
